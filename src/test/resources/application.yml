@@ -1,0 +1,5 @@
+spring:
+
+loggin.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
