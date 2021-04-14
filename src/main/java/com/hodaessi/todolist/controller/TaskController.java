@@ -1,17 +1,31 @@
 package com.hodaessi.todolist.controller;
 
+import com.hodaessi.todolist.domain.Task;
 import com.hodaessi.todolist.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class TaskController {
 
     private final TaskService taskService;
+
+    //task목록 출력
+    @GetMapping("/")
+    public String index(Model model) {
+        List<Task> tasks = taskService.readAll();
+        model.addAttribute("tasks", tasks);
+        //리스트가 비었을 때도 동작하긴 하는데, null처리(?)는 어떻게 해주는거 ???
+        return "index";
+    }
+    //루트신호('/'), 인덱스 페이지랑 task목록 출력 신호랑 분리가 안되네 ???
 
     //web입력 > task생성
 //    @PostMapping("/task/new")
@@ -30,8 +44,6 @@ public class TaskController {
 
         return "redirect:/";
     }
-
-    //task목록 출력
 
     //변경
 

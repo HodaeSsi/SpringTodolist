@@ -12,10 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class TaskServiceTest {
 
     @Autowired
@@ -34,6 +37,17 @@ public class TaskServiceTest {
         assertEquals(createId, findTask.getId());
         assertEquals(findTask.getContents(), "test");
         assertEquals(findTask.getStatus(), TaskStatus.TODO);
+    }
+
+    @Test
+    public void task전체조회_테스트() {
+
+        Long test1 = taskService.createTask("test1");
+        Long test2 = taskService.createTask("test2");
+
+        List<Task> taskList = taskRepository.findAll();
+
+        assertEquals(taskList.size(), 2);
     }
 
 }
