@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -19,6 +21,11 @@ public class TaskService {
         Task task = Task.createTask(contents);
         taskRepository.save(task);
         return task.getId();
+    }
+
+    //전부 읽기
+    public List<Task> readAll() {
+        return taskRepository.findAll();
     }
     
     //수정, 저장(!!!)

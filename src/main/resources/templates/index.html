@@ -10,5 +10,14 @@ Welcome, Todolist
     새로운 할 일 : <input type="text" name="task"/><br>
 </form>
 <!--<p th:text="${resultMessage}"}></p>-->
+<div>
+    <table class="table">
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.contents}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

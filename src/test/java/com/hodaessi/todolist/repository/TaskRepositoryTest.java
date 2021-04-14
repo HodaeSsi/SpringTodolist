@@ -34,7 +34,4 @@ public class TaskRepositoryTest {
         assertEquals(findTask.getContents(), "testMessage");
         assertEquals(findTask.getStatus(), TaskStatus.TODO);
     }
-    
-//    전체조회_테스트
-
 }
