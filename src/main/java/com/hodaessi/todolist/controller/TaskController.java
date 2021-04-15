@@ -5,9 +5,7 @@ import com.hodaessi.todolist.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +44,17 @@ public class TaskController {
     }
 
     //변경
+    //1. 완료 처리
+    @PostMapping("/task/{taskId}/check")
+    public String checkTask(@PathVariable Long taskId) {
+//        System.out.println(taskId);
+
+        taskService.checkTask(taskId);
+
+        return "redirect:/";
+    }
+    
+    //2. 출력 순서 변경
 
     //삭제
 }

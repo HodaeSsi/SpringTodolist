@@ -29,10 +29,15 @@ public class TaskService {
     }
     
     //수정, 저장(!!!)
-
-        //내용 수정
+    //내용 수정
     
-        //상태 수정
+    //상태 수정
+    @Transactional
+    public void checkTask(Long taskId) {
+        Task findTask = taskRepository.findOne(taskId);
+        findTask.changeStatus();
+        //영속성 컨텍스트(jpa?), 더티체킹(?) 추가 공부좀!!!
+    }
     
     //삭제
 }

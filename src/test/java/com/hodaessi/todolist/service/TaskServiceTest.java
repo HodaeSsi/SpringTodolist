@@ -50,4 +50,16 @@ public class TaskServiceTest {
         assertEquals(taskList.size(), 2);
     }
 
+    @Test
+    public void task_상태변경_테스트() {
+        Long test = taskService.createTask("test"); //초기 상태 TODO
+        Task findOne = taskRepository.findOne(test);
+        taskService.checkTask(findOne.getId());
+
+        assertEquals(findOne.getStatus(), TaskStatus.DONE);
+
+        taskService.checkTask(findOne.getId());
+
+        assertEquals(findOne.getStatus(), TaskStatus.TODO);
+    }
 }
