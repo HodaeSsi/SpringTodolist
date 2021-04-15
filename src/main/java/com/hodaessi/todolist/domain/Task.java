@@ -27,4 +27,11 @@ public class Task {
         task.status = TaskStatus.TODO;
         return task;
     }
+
+    public void changeStatus() {
+        if(this.status == TaskStatus.DONE)
+            this.status = TaskStatus.TODO;
+        else
+            this.status = TaskStatus.DONE;
+    }
 }
