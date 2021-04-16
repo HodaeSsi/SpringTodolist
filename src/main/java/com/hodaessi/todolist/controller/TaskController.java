@@ -53,8 +53,25 @@ public class TaskController {
 
         return "redirect:/";
     }
-    
-    //2. 출력 순서 변경
+
+    //2. 내용 변경
+    @PostMapping("/task/{taskId}/edit")
+    public String updateTask(@PathVariable Long taskId, String task) {
+//        System.out.println(taskId);
+//        System.out.println(task);
+        taskService.updateTask(taskId, task);
+
+        return "redirect:/";
+    }
+
+    //3. 출력 순서 변경
+
 
     //삭제
+    @PostMapping("/task/{taskId}/delete")
+    public String deleteTask(@PathVariable Long taskId) {
+        taskService.deleteTask(taskId);
+
+        return "redirect:/";
+    }
 }

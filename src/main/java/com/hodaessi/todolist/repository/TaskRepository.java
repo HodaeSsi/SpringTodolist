@@ -27,4 +27,11 @@ public class TaskRepository {
     public Task findOne(Long id) {
         return em.find(Task.class, id);
     }
+
+    //삭제
+    public void delete(Long taskId) {
+        Task findOne = findOne(taskId);
+        em.remove(findOne);
+    }
+
 }

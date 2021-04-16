@@ -62,4 +62,23 @@ public class TaskServiceTest {
 
         assertEquals(findOne.getStatus(), TaskStatus.TODO);
     }
+
+    @Test
+    public void task_삭제_테스트() {
+        Long test = taskService.createTask("test");
+
+        taskService.deleteTask(test);
+        assertNull(taskRepository.findOne(test));
+    }
+
+    @Test
+    public void task_메세지수정_테스트() {
+        Long test = taskService.createTask("test1");
+
+        taskService.updateTask(test, "test2");
+
+        Task findOne = taskRepository.findOne(test);
+
+        assertEquals(findOne.getContents(), "test2");
+    }
 }

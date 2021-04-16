@@ -3,6 +3,7 @@
 <head>
     <title>Todolist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 Welcome, Todolist
@@ -17,18 +18,40 @@ Welcome, Todolist
             <td th:if="${task.status.name() == 'TODO'}" th:text="${task.contents}"></td>
             <td th:if="${task.status.name() == 'DONE'}" th:text="${task.contents}" style="text-decoration: line-through"></td>
             <td>
+                <button type="button" th:id="@{editBtn-{id} (id=${task.id})}">edit</button>
+                <form th:id="@{editForm-{id} (id=${task.id})}" style="display: none" method="POST" th:action="@{/task/{id}/edit (id=${task.id})}">
+                    <input type="text" name="task"/>
+                </form>
+                <button type="button" th:id="@{cancelBtn-{id} (id=${task.id})}" style="display: none">cancel</button>
+            </td>
+            <td>
                 <form th:action="@{/task/{id}/check (id=${task.id})}" method="post">
                     <button type="submit">V</button>
                 </form>
             </td>
-<!--            <td>-->
-<!--                <form th:action="@{/task/{id}/delete (id=${task.id})}" method="post">-->
-<!--                    <button type="submit">X</button>-->
-<!--                </form>-->
-<!--            </td>-->
+            <td>
+                <form th:action="@{/task/{id}/delete (id=${task.id})}" method="post">
+                    <button type="submit">X</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 </body>
+<script>
+    $('[id^="editBtn-"]').click(function(e) {
+        var id = e.target.id;
+        var idNum = id.split('-')[1];
+        $('#editForm-' + idNum).attr('style', 'display: inline');
+        $('#cancelBtn-' + idNum).attr('style', 'display: inline');
+    });
+
+    $('[id^="cancelBtn-"]').click(function(e) {
+        var id = e.target.id;
+        var idNum = id.split('-')[1];
+        $('#editForm-' + idNum).attr('style', 'display: none');
+        $('#cancelBtn-' + idNum).attr('style', 'display: none');
+    });
+</script>
 </html>
