@@ -57,4 +57,10 @@ public class TaskController {
     //2. 출력 순서 변경
 
     //삭제
+    @PostMapping("/task/{taskId}/delete")
+    public String deleteTask(@PathVariable Long taskId) {
+        taskService.deleteTask(taskId);
+
+        return "redirect:/";
+    }
 }

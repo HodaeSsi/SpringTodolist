@@ -40,4 +40,8 @@ public class TaskService {
     }
     
     //삭제
+    @Transactional
+    public void deleteTask(Long taskId) {
+        taskRepository.delete(taskId);
+    }
 }

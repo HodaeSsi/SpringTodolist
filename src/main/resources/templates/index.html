@@ -16,16 +16,21 @@ Welcome, Todolist
         <tr th:each="task : ${tasks}">
             <td th:if="${task.status.name() == 'TODO'}" th:text="${task.contents}"></td>
             <td th:if="${task.status.name() == 'DONE'}" th:text="${task.contents}" style="text-decoration: line-through"></td>
+<!--            <td>-->
+<!--                <form th:action="@{/task/{id}/edit (id=${task.id})}" method="post">-->
+<!--                    <button type="submit">edit</button>-->
+<!--                </form>-->
+<!--            </td>-->
             <td>
                 <form th:action="@{/task/{id}/check (id=${task.id})}" method="post">
                     <button type="submit">V</button>
                 </form>
             </td>
-<!--            <td>-->
-<!--                <form th:action="@{/task/{id}/delete (id=${task.id})}" method="post">-->
-<!--                    <button type="submit">X</button>-->
-<!--                </form>-->
-<!--            </td>-->
+            <td>
+                <form th:action="@{/task/{id}/delete (id=${task.id})}" method="post">
+                    <button type="submit">X</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
