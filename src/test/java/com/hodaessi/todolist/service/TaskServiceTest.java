@@ -70,4 +70,15 @@ public class TaskServiceTest {
         taskService.deleteTask(test);
         assertNull(taskRepository.findOne(test));
     }
+
+    @Test
+    public void task_메세지수정_테스트() {
+        Long test = taskService.createTask("test1");
+
+        taskService.updateTask(test, "test2");
+
+        Task findOne = taskRepository.findOne(test);
+
+        assertEquals(findOne.getContents(), "test2");
+    }
 }

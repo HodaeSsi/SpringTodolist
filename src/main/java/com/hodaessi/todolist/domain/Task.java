@@ -34,4 +34,8 @@ public class Task {
         else
             this.status = TaskStatus.DONE;
     }
+
+    public void changeMessage(String contents) {
+        this.contents = contents;
+    }
 }
