@@ -2,6 +2,7 @@ package com.hodaessi.todolist.service;
 
 import com.hodaessi.todolist.domain.Task;
 import com.hodaessi.todolist.domain.TaskStatus;
+import com.hodaessi.todolist.exception.LengthOverException;
 import com.hodaessi.todolist.repository.TaskRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -28,8 +30,8 @@ public class TaskServiceTest {
     @Autowired
     TaskService taskService;
 
-    @Test
-    public void task생성_저장_테스트() {
+    @Test(expected = LengthOverException.class)
+    public void task생성_저장_테스트() throws Exception {
 
         Long createId = taskService.createTask("test");
         Task findTask = taskRepository.findOne(createId);
@@ -37,6 +39,14 @@ public class TaskServiceTest {
         assertEquals(createId, findTask.getId());
         assertEquals(findTask.getContents(), "test");
         assertEquals(findTask.getStatus(), TaskStatus.TODO);
+
+        String testString = "";
+        for(int i = 0; i < Task.contentsLength +1; i++) {
+            testString += '*';
+        }
+        Long testId = taskService.createTask(testString);
+
+        fail("contents 크기 초과 예외가 발생해야 합니다.");
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.hodaessi.todolist.service;
 
 import com.hodaessi.todolist.domain.Task;
 import com.hodaessi.todolist.domain.TaskStatus;
+import com.hodaessi.todolist.exception.LengthOverException;
 import com.hodaessi.todolist.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class TaskService {
 
     //생성, 저장
     @Transactional
-    public Long createTask(String contents) {
+    public Long createTask(String contents) throws LengthOverException {
         Task task = Task.createTask(contents);
         taskRepository.save(task);
         return task.getId();
