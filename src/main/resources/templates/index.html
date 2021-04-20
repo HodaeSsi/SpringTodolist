@@ -6,11 +6,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-Welcome, Todolist
+<p>Welcome, Todolist</p>
 <form method="POST" action="/task/new">
-    새로운 할 일 : <input type="text" name="task"/><br>
+    새로운 할 일 : <input type="text" name="task"/>
 </form>
-<!--<p th:text="${resultMessage}"}></p>-->
+<p th:text="${createMsg}"></p>
 <div>
     <table class="table">
         <tbody>
