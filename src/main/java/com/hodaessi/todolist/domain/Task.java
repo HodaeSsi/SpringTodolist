@@ -16,6 +16,7 @@ public class Task {
     private Long id;
 
     @Column(length = contentsLength)
+    //이거 맞아? 어노테이션마다 동작 시기(?)가 다르다고 ???
     private String contents;
 
     @Enumerated(EnumType.STRING)
@@ -43,6 +44,10 @@ public class Task {
     }
 
     public void changeMessage(String contents) {
+
+        if(contents.length() > contentsLength) {
+            throw new LengthOverException(String.format("contentsLength is over max(" + contentsLength + ")"));
+        }
         this.contents = contents;
     }
 }

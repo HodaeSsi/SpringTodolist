@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @Transactional
 public class TaskServiceTest {
+    //각 테스트가 독립적으로 동작하게 하는 방법이 뭐였지 ???
 
     @Autowired
     EntityManager em;
@@ -46,7 +47,7 @@ public class TaskServiceTest {
         }
         Long testId = taskService.createTask(testString);
 
-        fail("contents 크기 초과 예외가 발생해야 합니다.");
+        fail("createTask() : contents 크기 초과 예외가 발생해야 합니다.");
     }
 
     @Test
@@ -81,8 +82,9 @@ public class TaskServiceTest {
         assertNull(taskRepository.findOne(test));
     }
 
-    @Test
-    public void task_메세지수정_테스트() {
+    @Test(expected = LengthOverException.class)
+    public void task_메세지수정_테스트() throws Exception{
+
         Long test = taskService.createTask("test1");
 
         taskService.updateTask(test, "test2");
@@ -90,5 +92,16 @@ public class TaskServiceTest {
         Task findOne = taskRepository.findOne(test);
 
         assertEquals(findOne.getContents(), "test2");
+
+        String testStr = "";
+        for (int i = 0; i < Task.contentsLength +1; i++) {
+            testStr += '*';
+        }
+//        for (int i = 0; i < Task.contentsLength -1; i++) {
+//            testStr += '*';
+//        }
+        taskService.updateTask(test, testStr);
+
+        fail("updateTask() : contents 크기 초과 예외가 발생해야 합니다.");
     }
 }
