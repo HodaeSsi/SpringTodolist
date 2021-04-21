@@ -36,7 +36,7 @@ public class TaskController {
             taskService.createTask(task);
             createMsg = "create success";
         } catch (LengthOverException e) {
-            createMsg = "create fail";
+            createMsg = "create failure";
         }
 
         rttr.addFlashAttribute("createMsg", createMsg);
@@ -56,11 +56,20 @@ public class TaskController {
 
     //2. 내용 변경
     @PostMapping("/task/{taskId}/edit")
-    public String updateTask(@PathVariable Long taskId, String task) {
+    public String updateTask(@PathVariable Long taskId, String task, RedirectAttributes rttr) {
 //        System.out.println(taskId);
 //        System.out.println(task);
-        taskService.updateTask(taskId, task);
 
+        String updateMsg;
+
+        try {
+            taskService.updateTask(taskId, task);
+            updateMsg = "update success";
+        } catch (LengthOverException e) {
+            updateMsg = "update failure";
+        }
+
+        rttr.addFlashAttribute("updateMsg", updateMsg);
         return "redirect:/";
     }
 

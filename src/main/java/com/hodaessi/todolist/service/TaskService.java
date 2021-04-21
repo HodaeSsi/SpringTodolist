@@ -40,7 +40,7 @@ public class TaskService {
 
     //내용 수정
     @Transactional
-    public Long updateTask(Long taskId, String contents) {
+    public Long updateTask(Long taskId, String contents) throws LengthOverException {
         Task findTask = taskRepository.findOne(taskId);
         findTask.changeMessage(contents);
 
